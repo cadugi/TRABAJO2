@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'Halter';
+    src: url('fonts/halter.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'Halter', Arial, sans-serif; /* Aplica la fuente Halter globalmente */
+}
+
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #005db4;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+form label {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+    text-align: left;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.botones-contenedor {
+    display: flex;
+    justify-content: space-between; /* Espacio entre los botones */
+    gap: 10px; /* Espacio entre los botones */
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.registro-boton,
+.anonimo-boton,
+.login-boton {
+    flex: 1; /* Cada botón ocupa el mismo espacio */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.registro-boton {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+.registro-boton:hover {
+    background-color: #45a049;
+}
+
+.anonimo-boton {
+    background-color: #f44336; /* Rojo */
+    color: white;
+}
+
+.anonimo-boton:hover {
+    background-color: #d32f2f;
+}
+
+.login-boton {
+    background-color: #005db4; /* Azul */
+    color: white;
+}
+
+.login-boton:hover {
+    background-color: #004494;
+}

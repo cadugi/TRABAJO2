@@ -1,0 +1,392 @@
+@font-face {
+    font-family: 'Halter';
+    src: url('fonts/halter.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Halter', Arial, sans-serif; /* Aplica la fuente Halter globalmente */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px; 
+    height: 100%; 
+    background-color: #0c97c2;
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow-y: auto; 
+}
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+}
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+header nav ul li a:hover {
+    background-color: #0a7ca0; 
+}
+main {
+    margin-left: 220px; 
+    padding: 20px;
+}
+.descripcion {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.descripcion h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+.descripcion p {
+    font-size: 1.2em;
+    color: #555;
+}
+.ultimos-productos {
+    text-align: center;
+}
+.ultimos-productos h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+}
+.producto {
+    border: 1px solid #b3b3b3;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    background-color: #005db4;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none; 
+    color: inherit; 
+}
+.producto img {
+    width: 72px; 
+    height: 72px; 
+    border-radius: 8px; 
+    margin-bottom: 10px;
+    object-fit: cover; 
+}
+.producto h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none; 
+    color: inherit; 
+}
+.producto p {
+    font-size: 1em;
+    color: #474747;
+    margin-bottom: 10px;
+    text-decoration: none; 
+    color: inherit; 
+}
+.producto strong {
+    font-size: 1.2em;
+    color: #000;
+    text-decoration: none; 
+    color: inherit; 
+}
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none; 
+    color: inherit; 
+}
+.producto a {
+    text-decoration: none; 
+    color: inherit; 
+}
+.producto a:hover {
+    text-decoration: none; 
+    color: inherit; 
+}
+/* Estilo general para todas las categorías */
+.producto-catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres productos por fila */
+    gap: 20px; /* Espaciado entre productos */
+    justify-content: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.producto-catalogo .producto {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.producto-catalogo .producto img {
+    width: 150px; /* Tamaño uniforme para todas las imágenes */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.producto-catalogo .producto h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.producto-catalogo .producto p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.producto-catalogo .producto strong {
+    font-size: 1.1em;
+    color: #000;
+}
+
+.producto-catalogo .producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.producto-banner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+.producto-banner .producto {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.producto-banner .producto img {
+    width: 100%; 
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.producto-banner .producto h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+.producto-banner .producto p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
+.producto-banner .producto strong {
+    font-size: 1.1em;
+    color: #000;
+}
+.producto-banner .producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+}
+section#hogar {
+    margin-bottom: 40px;
+}
+section#hogar h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+section#hogar .producto-catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+section#hogar .producto img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+section#libros {
+    margin-bottom: 40px;
+}
+section#libros h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+section#libros .producto-catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+section#libros .producto img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+section#ninos {
+    margin-bottom: 40px;
+}
+section#ninos h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+section#ninos .producto-catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+section#ninos .producto img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Contenedor principal del formulario */
+#compra-form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Título del formulario */
+#compra-form h2 {
+    font-size: 1.8em;
+    color: #005db4;
+    margin-bottom: 20px;
+}
+
+/* Detalles del producto */
+#compra-form .producto {
+    margin-bottom: 20px;
+}
+
+#compra-form .producto img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+#compra-form .producto h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#compra-form .producto p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Tabla del formulario */
+#compra-form table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+#compra-form table td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+#compra-form label {
+    font-size: 1em;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Campos de entrada */
+#compra-form input[type="text"],
+#compra-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    transition: border-color 0.3s;
+}
+
+#compra-form input[type="text"]:focus,
+#compra-form input[type="password"]:focus {
+    border-color: #005db4;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 93, 180, 0.5);
+}
+
+/* Botón de confirmación */
+#compra-form button {
+    background-color: #005db4;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#compra-form button:hover {
+    background-color: #004494;
+    transform: scale(1.05);
+}
+
+#compra-form button:active {
+    transform: scale(1);
+}

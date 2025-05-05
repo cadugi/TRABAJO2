@@ -1,0 +1,139 @@
+@font-face {
+    font-family: 'Halter';
+    src: url('fonts/halter.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'Halter', Arial, sans-serif; /* Aplica la fuente Halter globalmente */
+}
+
+body {
+    font-family: 'Halter', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f8ff; /* Fondo azul claro */
+    color: #333;
+}
+
+header {
+    background: #005db4; /* Azul principal */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-bottom: 4px solid #004494; /* Borde inferior */
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #005db4; /* Borde azul */
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #005db4; /* Azul principal */
+    margin-bottom: 20px;
+    font-family: 'Halter', Arial, sans-serif; /* Aplicar la fuente a los encabezados */
+}
+
+.producto-compra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.producto {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.producto img {
+    border-radius: 8px;
+    border: 2px solid #005db4; /* Borde azul */
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: solid 5px #005db4;
+    border-style: groove;
+    background-color: rgb(0, 90, 226);
+}
+
+td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+label {
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: rgb(48, 48, 48) 0.1px 0.1px 0.1px; /* Sombra blanca */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    text-shadow: white 0.1px 0.1px 0.1px; /* Sombra blanca */
+}
+
+input:focus {
+    border-color: #005db4; /* Azul principal */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 93, 180, 0.5); /* Sombra azul */
+}
+
+button {
+    background: #005db4; /* Azul principal */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #004494; /* Azul más oscuro */
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 15px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

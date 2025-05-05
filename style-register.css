@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'Halter';
+    src: url('fonts/halter.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'Halter', Arial, sans-serif; /* Aplica la fuente Halter globalmente */
+}
+body {
+    font-family: 'Halter', Arial, sans-serif; /* Aplica la fuente Halter globalmente */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.registro-body {
+    font-family: Halter;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0; /* Fondo claro */
+    box-sizing: border-box;
+}
+
+.registro-titulo {
+    font-size: 2.5em;
+    color: #ffffff;
+    background-color: #005db4; /* Azul principal */
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 90%;
+}
+
+.registro-form {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    width: 90%; /* Ancho responsivo */
+    max-width: 500px; /* Ancho máximo */
+    box-sizing: border-box;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.registro-label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.registro-input {
+    font-size: 1em;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.botones-contenedor {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Espacio entre los botones */
+    margin-top: 20px;
+}
+
+.registro-boton {
+    background-color: #005db4; /* Azul principal */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    flex: 7; /* 70% del ancho */
+    transition: background-color 0.3s ease;
+}
+
+.registro-boton:hover {
+    background-color: #004494; /* Azul más oscuro */
+}
+
+.login-boton {
+    background-color: rgb(2, 167, 71); /* Rojo principal */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    flex: 3; /* 30% del ancho */
+    transition: background-color 0.3s ease;
+}
+
+.login-boton:hover {
+    background-color: rgb(1, 124, 52);
+}
+
+@media (max-width: 768px) {
+    .registro-titulo {
+        font-size: 2em;
+    }
+
+    .registro-form {
+        width: 100%;
+        padding: 15px;
+    }
+}
