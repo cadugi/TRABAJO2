@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="style-publicar.css">
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
@@ -11,35 +12,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $categoria = $_POST['categoria'];
     $descripcion = $_POST['descripcion'];
     $precio = $_POST['precio'];
-    $imagen = $_FILES['imagen']['name'];  // Asumiendo que la imagen se sube
+    $imagen = $_FILES['imagen']['name'];
 
-    // Mover la imagen a la carpeta
-    move_uploaded_file($_FILES['imagen']['tmp_name'], "imagenes/" . $imagen);
+    // Verificar y crear el directorio 'images' si no existe
+    if (!is_dir('images')) {
+        mkdir('images', 0777, true);
+    }
+
+    // Mover la imagen a la carpeta 'images'
+    $ruta_imagen = "images/" . $imagen;
+    if (!move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_imagen)) {
+        die("<p>Error al subir la imagen. Verifica los permisos del directorio.</p>");
+    }
 
     // Conexión a la base de datos
     $conexion = mysqli_connect("localhost", "root", "", "tienda");
 
     if (!$conexion) {
-        echo "Error al conectar: " . mysqli_connect_errno() . " " . mysqli_connect_error();
-        exit();
+        die("<p>Error al conectar: " . mysqli_connect_errno() . " " . mysqli_connect_error() . "</p>");
     }
 
     // Insertar producto en la base de datos
     $sql = "INSERT INTO productos (nombre, categoria, descripcion, precio, imagen, id_vendedor) 
-            VALUES ('$nombre', '$categoria', '$descripcion', '$precio', 'imagenes/$imagen', 
+            VALUES ('$nombre', '$categoria', '$descripcion', '$precio', '$ruta_imagen', 
             (SELECT id FROM usuarios WHERE correo = '" . $_SESSION['usuario'] . "'))";
 
     if (mysqli_query($conexion, $sql)) {
-        echo "Producto publicado con éxito.";
+        echo "<p>Producto publicado con éxito.</p>";
     } else {
-        echo "Error al publicar el producto.";
+        echo "<p>Error al publicar el producto: " . mysqli_error($conexion) . "</p>";
     }
 
     mysqli_close($conexion);
 }
 ?>
 
-<form action="publicar_producto.php" method="POST" enctype="multipart/form-data">
+<form action="publicar.php" method="POST" enctype="multipart/form-data">
     <input type="text" name="nombre" placeholder="Nombre del producto" required>
     <select name="categoria" required>
         <option value="Motor y accesorios">Motor y accesorios</option>
