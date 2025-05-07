@@ -1,0 +1,89 @@
+@font-face {
+    font-family: 'Halter';
+    src: url('fonts/halter.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Halter', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f0f8ff; /* Fondo azul claro */
+    color: #333;
+    text-align: center;
+}
+
+header {
+    background: #005db4;
+    color: white;
+    padding: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-bottom: 4px solid #004494;
+}
+
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #005db4;
+}
+
+h1 {
+    color: #005db4;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: solid 4px #005db4;
+    border-style: groove;
+    background-color: white;
+}
+
+th, td {
+    border: 1px solid #005db4;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #005db4;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #cde3ff; /* Alternancia en filas */
+}
+
+button {
+    background: #005db4;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #004494;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.98);
+}

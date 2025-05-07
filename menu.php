@@ -14,6 +14,7 @@ if (!isset($_SESSION)) {
         <li><a href="login.php">Login</a></li>
         <li><a href="registro.php">Registro</a></li>
         <li><a href="productos.php">Catálogo de productos</a></li>
+        <li><a href="historial.php">nuestros productos vendidos</a></li>
         <?php
         // Si el usuario NO es anónimo, puede ver el enlace para publicar
         if (!isset($_SESSION['es_anonimo']) || $_SESSION['es_anonimo'] != true) {

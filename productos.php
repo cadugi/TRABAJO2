@@ -16,36 +16,43 @@ $resultado = mysqli_query($conexion, $sql);
 if (!$resultado) {
     die("Error en la consulta: " . mysqli_error($conexion));
 }
+
+// Organizar productos por categoría
+$productos_por_categoria = [];
+
+while ($producto = mysqli_fetch_assoc($resultado)) {
+    $categoria = $producto['categoria'] ? htmlspecialchars($producto['categoria']) : "Sin categoría";
+    $productos_por_categoria[$categoria][] = $producto;
+}
+
+mysqli_close($conexion);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>tienda</title>
+    <title>Tienda</title>
     <link rel="stylesheet" href="style-productos.css">
 </head>
 <body>
     <h1>Lista de Productos</h1>
-    <div class="producto-catalogo">
-        <?php
-        // Mostrar todos los productos
-        while ($producto = mysqli_fetch_assoc($resultado)) {
-            echo '<div class="producto">';
-            echo '<a href="comprar.php?id_producto=' . urlencode($producto['id_producto']) . '">'; // Usar urlencode para evitar problemas en la URL
-            echo '<img src="' . htmlspecialchars($producto['imagen']) . '" alt="' . htmlspecialchars($producto['producto_nombre']) . '">';
-            echo '<h3>' . htmlspecialchars($producto['producto_nombre']) . '</h3>';
-            echo '<p>' . htmlspecialchars($producto['descripcion']) . '</p>';
-            echo '<p><strong>Precio: $' . htmlspecialchars($producto['precio']) . '</strong></p>';
-            echo '<p>Vendedor: ' . ($producto['vendedor_nombre'] ? htmlspecialchars($producto['vendedor_nombre']) : 'No especificado') . '</p>';
-            echo '</a>';
-            echo '</div>';
-        }
-        ?>
-    </div>
+
+    <?php foreach ($productos_por_categoria as $categoria => $productos) : ?>
+        <h2><?php echo $categoria; ?></h2>
+        <div class="producto-catalogo">
+            <?php foreach ($productos as $producto) : ?>
+                <div class="producto">
+                    <a href="comprar.php?id_producto=<?php echo urlencode($producto['id_producto']); ?>">
+                        <img src="<?php echo htmlspecialchars($producto['imagen']); ?>" alt="<?php echo htmlspecialchars($producto['producto_nombre']); ?>">
+                        <h3><?php echo htmlspecialchars($producto['producto_nombre']); ?></h3>
+                        <p><?php echo htmlspecialchars($producto['descripcion']); ?></p>
+                        <p><strong>Precio: $<?php echo htmlspecialchars($producto['precio']); ?></strong></p>
+                        <p>Vendedor: <?php echo $producto['vendedor_nombre'] ? htmlspecialchars($producto['vendedor_nombre']) : 'No especificado'; ?></p>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
 </body>
 </html>
-
-<?php
-mysqli_close($conexion);
-?>
