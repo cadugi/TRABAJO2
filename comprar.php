@@ -1,52 +1,76 @@
 <?php
 session_start();
+
+// Comprobar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
-    exit();
+    die("Error: El usuario no ha iniciado sesión.");
 }
 
-// Obtener el ID del producto a comprar
-if (isset($_GET['producto_id'])) {
-    $producto_id = $_GET['producto_id'];
+// Conexión a la base de datos
+$conexion = mysqli_connect("localhost", "root", "", "tienda");
 
-    // Conexión a la base de datos
-    $conexion = mysqli_connect("localhost", "root", "", "tienda");
+if (!$conexion) {
+    die("Error al conectar a la base de datos: " . mysqli_connect_error());
+}
 
-    if (!$conexion) {
-        echo "Error al conectar: " . mysqli_connect_errno() . " " . mysqli_connect_error();
-        exit();
-    }
+// Obtener el email del usuario desde la sesión/cookie
+$usuario_email = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : $_COOKIE['usuario'];
+echo "<script>console.log('Log: Email usuario obtenido: $usuario_email');</script>";
 
-    // Obtener datos del producto
-    $sql = "SELECT * FROM productos WHERE id = $producto_id";
-    $resultado = mysqli_query($conexion, $sql);
-    $producto = mysqli_fetch_assoc($resultado);
+// Obtener el nombre del producto a comprar
+if (!isset($_GET['id_producto'])) {
+    die("<p>Error: No se ha seleccionado ningún producto.</p>");
+}
 
-    // Verificar que el producto existe
-    if (!$producto) {
-        echo "Producto no encontrado.";
-        exit();
-    }
+$id_producto = intval($_GET['id_producto']);
+echo "<script>console.log('Log: ID Producto recibido: $id_producto');</script>";
 
-    // Verificar si el comprador es el mismo que el vendedor
-    if ($producto['id_vendedor'] == $_SESSION['usuario_id']) {
-        echo "No puedes comprar un producto que has publicado.";
-        exit();
-    }
+// Obtener el nombre del producto desde la base de datos
+$sql_producto = "SELECT nombre FROM productos WHERE id_producto = ?";
+$stmt_producto = mysqli_prepare($conexion, $sql_producto);
+mysqli_stmt_bind_param($stmt_producto, "i", $id_producto);
+mysqli_stmt_execute($stmt_producto);
+$resultado_producto = mysqli_stmt_get_result($stmt_producto);
+$producto = mysqli_fetch_assoc($resultado_producto);
+mysqli_stmt_close($stmt_producto);
 
-    // Registrar la compra
-    $sql_compra = "INSERT INTO compras (id_producto, id_comprador) VALUES ($producto_id, (SELECT id FROM usuarios WHERE correo = '" . $_SESSION['usuario'] . "'))";
-    if (mysqli_query($conexion, $sql_compra)) {
-        // Eliminar producto de la venta
-        $sql_eliminar = "DELETE FROM productos WHERE id = $producto_id";
-        mysqli_query($conexion, $sql_eliminar);
-        echo "Compra realizada con éxito.";
-    } else {
-        echo "Error al registrar la compra.";
-    }
+if (!$producto) {
+    die("<p>Error: No se encontró el producto en la base de datos.</p>");
+}
 
-    mysqli_close($conexion);
+$nombre_producto = $producto['nombre'];
+echo "<script>console.log('Log: Nombre del producto obtenido: $nombre_producto');</script>";
+
+$fecha_compra = date('Y-m-d H:i:s');
+echo "<script>console.log('Log: Fecha de compra generada: $fecha_compra');</script>";
+
+// Registrar la compra en la tabla `datos`
+$sql_compra = "INSERT INTO datos (nombre_producto, fecha_compra) VALUES (?, ?)";
+$stmt_compra = mysqli_prepare($conexion, $sql_compra);
+mysqli_stmt_bind_param($stmt_compra, "ss", $nombre_producto, $fecha_compra);
+
+echo "<script>console.log('Log: Intentando registrar la compra...');</script>";
+
+if (mysqli_stmt_execute($stmt_compra)) {
+    echo "<script>console.log('Log: Compra registrada correctamente.');</script>";
+    echo "<h1>¡Compra realizada con éxito!</h1>";
+    echo "<p>Se ha registrado el producto comprado y la fecha.</p>";
 } else {
-    echo "No se ha seleccionado ningún producto.";
+    echo "<script>console.log('Error al registrar la compra: " . mysqli_error($conexion) . "');</script>";
+    echo "<p>Error al registrar la compra.</p>";
 }
+
+mysqli_stmt_close($stmt_compra);
+mysqli_close($conexion);
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estado de la Compra</title>
+</head>
+<body>
+    <a href="index.php"><button>Volver al inicio</button></a>
+</body>
+</html>

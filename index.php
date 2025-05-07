@@ -45,7 +45,7 @@ if (isset($_SESSION['es_anonimo']) && $_SESSION['es_anonimo'] == true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda General Fonsi</title>
+    <title>tienda General Fonsi</title>
     <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -180,7 +180,7 @@ if (isset($_SESSION['es_anonimo']) && $_SESSION['es_anonimo'] == true) {
     </main>
 
     <footer>
-        <p>&copy; 2025 Tienda General Fonsi. Todos los derechos reservados. (bueno solo es para vaquero asique en realidad no hace falta)</p>
+        <p>&copy; 2025 tienda General Fonsi. Todos los derechos reservados. (bueno solo es para vaquero asique en realidad no hace falta)</p>
     </footer>
 </body>
 </html>

@@ -3,74 +3,49 @@
 $conexion = mysqli_connect("localhost", "root", "", "tienda");
 
 if (!$conexion) {
-    echo "Error al conectar: " . mysqli_connect_errno() . " " . mysqli_connect_error();
-    exit();
+    die("Error al conectar: " . mysqli_connect_errno() . " " . mysqli_connect_error());
 }
 
-// Verificar si el usuario está autenticado
-session_start();
-$usuario_autenticado = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
+// Consulta de todos los productos con el nombre del vendedor
+$sql = "SELECT p.id_producto, p.nombre AS producto_nombre, p.descripcion, p.precio, p.categoria, p.imagen, 
+               u.nombre AS vendedor_nombre 
+        FROM productos p
+        LEFT JOIN usuarios u ON p.id_vendedor = u.id_usuario";
+$resultado = mysqli_query($conexion, $sql);
 
-// Consulta de productos
-$sql1 = "SELECT id, nombre, descripcion, precio, categoria, imagen, id_vendedor FROM productos";
-if ($usuario_autenticado) {
-    // Si el usuario está autenticado, mostramos productos de todos, o solo los suyos
-    if ($_SESSION['usuario'] != 'admin@tienda.com') {
-        $sql1 .= " WHERE id_vendedor != (SELECT id FROM usuarios WHERE correo = '$usuario_autenticado')";
-    }
+if (!$resultado) {
+    die("Error en la consulta: " . mysqli_error($conexion));
 }
-
-$resultado = mysqli_query($conexion, $sql1);
-
-// Agrupamos los productos por categoría
-$productosPorCategoria = array();
-while ($producto = mysqli_fetch_assoc($resultado)) {
-    $categoria = $producto['categoria'];
-    if (!isset($productosPorCategoria[$categoria])) {
-        $productosPorCategoria[$categoria] = array();
-    }
-    $productosPorCategoria[$categoria][] = $producto;
-}
-
-mysqli_close($conexion);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Tienda</title>
+    <title>tienda</title>
     <link rel="stylesheet" href="style-productos.css">
-    <style>
-        /* Añadir los estilos aquí */
-    </style>
 </head>
 <body>
-    <?php include 'menu.php'; ?> <!-- Menú lateral -->
-
-    <main>
+    <h1>Lista de Productos</h1>
+    <div class="producto-catalogo">
         <?php
-        // Mostrar productos agrupados por categoría
-        foreach ($productosPorCategoria as $categoria => $lista) {
-            echo "<section>";
-            echo "<h2>$categoria</h2>";
-            echo '<div class="producto-catalogo">';
-
-            foreach ($lista as $producto) {
-                echo '<div class="producto">';
-                echo '<a href="comprar.php?producto_id=' . $producto['id'] . '">';
-                echo '<img src="' . $producto['imagen'] . '" alt="' . $producto['nombre'] . '">';
-                echo '<h3>' . $producto['nombre'] . '</h3>';
-                echo '<p>' . $producto['descripcion'] . '</p>';
-                echo '<p><strong>$' . $producto['precio'] . '</strong></p>';
-                echo '</a>';
-                echo '</div>';
-            }
-
+        // Mostrar todos los productos
+        while ($producto = mysqli_fetch_assoc($resultado)) {
+            echo '<div class="producto">';
+            echo '<a href="comprar.php?id_producto=' . urlencode($producto['id_producto']) . '">'; // Usar urlencode para evitar problemas en la URL
+            echo '<img src="' . htmlspecialchars($producto['imagen']) . '" alt="' . htmlspecialchars($producto['producto_nombre']) . '">';
+            echo '<h3>' . htmlspecialchars($producto['producto_nombre']) . '</h3>';
+            echo '<p>' . htmlspecialchars($producto['descripcion']) . '</p>';
+            echo '<p><strong>Precio: $' . htmlspecialchars($producto['precio']) . '</strong></p>';
+            echo '<p>Vendedor: ' . ($producto['vendedor_nombre'] ? htmlspecialchars($producto['vendedor_nombre']) : 'No especificado') . '</p>';
+            echo '</a>';
             echo '</div>';
-            echo "</section>";
         }
         ?>
-    </main>
+    </div>
 </body>
 </html>
+
+<?php
+mysqli_close($conexion);
+?>
